@@ -6,16 +6,37 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model User {
+  id       Int       @id @default(autoincrement())
+  name     String
+  email    String    @unique
+  password String
+  articles Article[]
+  comments Comment[]
 }
 
 model Article {
-  id          Int      @id @default(autoincrement())
-  title       String   @unique
+  id          Int       @id @default(autoincrement())
+  title       String    @unique
   description String?
   body        String
-  published   Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  published   Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  user        User?     @relation(fields: [userId], references: [id])
+  userId      Int?
+  comment     Comment[]
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  Article   Article? @relation(fields: [articleId], references: [id])
+  articleId Int?
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    Int?
 }
