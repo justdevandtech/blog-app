@@ -9,32 +9,44 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UsersService = void 0;
+exports.UserService = exports.roundsOfHashing = void 0;
 const common_1 = require("@nestjs/common");
-const prisma_service_1 = require("./../prisma/prisma.service");
-let UsersService = class UsersService {
+const prisma_service_1 = require("../prisma/prisma.service");
+const bcrypt = require("bcrypt");
+exports.roundsOfHashing = 10;
+let UserService = class UserService {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    create(createUserDto) {
-        return this.prisma.user.create({ data: createUserDto });
+    async create(createUserDto) {
+        const hashedPassword = await bcrypt.hash(createUserDto.password, exports.roundsOfHashing);
+        createUserDto.password = hashedPassword;
+        return this.prisma.user.create({
+            data: createUserDto,
+        });
     }
     findAll() {
-        return this.prisma.user.findMany({});
+        return this.prisma.user.findMany();
     }
     findOne(id) {
         return this.prisma.user.findUnique({ where: { id } });
     }
-    update(id, updateUserDto) {
-        return this.prisma.user.update({ where: { id }, data: updateUserDto });
+    async update(id, updateUserDto) {
+        if (updateUserDto.password) {
+            updateUserDto.password = await bcrypt.hash(updateUserDto.password, exports.roundsOfHashing);
+        }
+        return this.prisma.user.update({
+            where: { id },
+            data: updateUserDto,
+        });
     }
     remove(id) {
         return this.prisma.user.delete({ where: { id } });
     }
 };
-UsersService = __decorate([
+UserService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [prisma_service_1.PrismaService])
-], UsersService);
-exports.UsersService = UsersService;
+], UserService);
+exports.UserService = UserService;
 //# sourceMappingURL=users.service.js.map

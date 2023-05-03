@@ -24,7 +24,7 @@ __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", String)
+    __metadata("design:returntype", Array)
 ], AppController.prototype, "getHello", null);
 AppController = __decorate([
     (0, common_1.Controller)(),

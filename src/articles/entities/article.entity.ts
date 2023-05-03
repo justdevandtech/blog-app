@@ -4,7 +4,7 @@ import { UserEntity } from 'src/users/entities/user.entity';
 
 export class ArticleEntity implements Article {
   @ApiProperty()
-  id: number;
+  id: string;
 
   @ApiProperty()
   title: string;
@@ -25,7 +25,7 @@ export class ArticleEntity implements Article {
   updatedAt: Date;
 
   @ApiProperty({ required: false, nullable: true })
-  userId: number;
+  userId: string;
 
   @ApiProperty({ required: false, type: UserEntity })
   user?: UserEntity;

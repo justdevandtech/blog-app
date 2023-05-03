@@ -2,7 +2,11 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return 'Hello World!';
+  getHello(): Array<any> {
+    return [
+      {
+        message: 'Welcome to my Blog app, built with nestjs and prisma',
+      },
+    ];
   }
 }

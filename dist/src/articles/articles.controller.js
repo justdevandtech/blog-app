@@ -21,6 +21,7 @@ const common_2 = require("@nestjs/common");
 const common_3 = require("@nestjs/common");
 const create_article_dto_1 = require("./dto/create-article.dto");
 const update_article_dto_1 = require("./dto/update-article.dto");
+const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 let ArticlesController = class ArticlesController {
     constructor(articlesService) {
         this.articlesService = articlesService;
@@ -50,6 +51,7 @@ let ArticlesController = class ArticlesController {
 };
 __decorate([
     (0, common_2.Post)(),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiCreatedResponse)({ type: article_entity_1.ArticleEntity }),
     __param(0, (0, common_3.Body)()),
     __metadata("design:type", Function),
@@ -58,6 +60,7 @@ __decorate([
 ], ArticlesController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiOkResponse)({ type: article_entity_1.ArticleEntity, isArray: true }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
@@ -65,6 +68,7 @@ __decorate([
 ], ArticlesController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)('drafts'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiOkResponse)({ type: article_entity_1.ArticleEntity, isArray: true }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
@@ -72,27 +76,30 @@ __decorate([
 ], ArticlesController.prototype, "findDrafts", null);
 __decorate([
     (0, common_1.Get)(':id'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiOkResponse)({ type: article_entity_1.ArticleEntity }),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], ArticlesController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Patch)(':id'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiOkResponse)({ type: article_entity_1.ArticleEntity }),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_3.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, update_article_dto_1.UpdateArticleDto]),
+    __metadata("design:paramtypes", [String, update_article_dto_1.UpdateArticleDto]),
     __metadata("design:returntype", void 0)
 ], ArticlesController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiOkResponse)({ type: article_entity_1.ArticleEntity }),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], ArticlesController.prototype, "remove", null);
 ArticlesController = __decorate([

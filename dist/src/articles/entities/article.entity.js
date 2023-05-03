@@ -34,7 +34,7 @@ class ArticleEntity {
 }
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], ArticleEntity.prototype, "id", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
@@ -62,7 +62,7 @@ __decorate([
 ], ArticleEntity.prototype, "updatedAt", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, nullable: true }),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], ArticleEntity.prototype, "userId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: user_entity_1.UserEntity }),
